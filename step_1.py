@@ -18,9 +18,12 @@ __author__ = 'FC_Song'
 # 1.准备训练数据a: 利用前5天所有汇率的收市价预测明日人名币兑美元收市价格
 filepath = './currency_exchange_rates_output.csv'
 datasets = pd.read_csv(filepath)[['TIME', 'NAME', 'CLOSE']]
-name_values = datasets['NAME'].unique()  # 获取13种不同汇率
-time_values = datasets['TIME'].unique()  # 获取所有日期
-time_df = DataFrame(time_values)  # 挑选出1307条不同的时间转换为DataFrame结构
+# 获取13种不同汇率
+name_values = datasets['NAME'].unique()  
+# 获取所有日期
+time_values = datasets['TIME'].unique() 
+# 挑选出1307条不同的时间转换为DataFrame结构
+time_df = DataFrame(time_values)  
 df_list = [datasets.where(datasets['NAME'] == name).dropna().rename
            (columns={'CLOSE': 'CLOSE' + '_' + name}).iloc
            [:, [-1]].reset_index(drop=True) for name in name_values]
